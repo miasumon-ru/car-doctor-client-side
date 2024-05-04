@@ -1,10 +1,16 @@
 
+import { useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
 import CustomAuth from '../../custom/CustomAuth';
+import axios from 'axios';
 
 const Login = () => {
 
     const {login} = CustomAuth()
+
+    const location = useLocation()
+    console.log(location)
+    const navigate = useNavigate()
 
 
     const handleLogin = (e) => {
@@ -19,8 +25,25 @@ const Login = () => {
         console.log(email, password)
 
         login(email, password)
-        .then(result => 
+        .then(result => {
             console.log(result.user)
+            
+
+            const user = {email}
+
+            axios.post('http://localhost:5000/jwt',  user, {withCredentials:true} )
+            .then(res => {
+                console.log(res.data)
+                if(res.data.success){
+                    navigate(location.state)
+
+                }
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
+        }     
         )
         .catch(error => {
             console.log(error.message)

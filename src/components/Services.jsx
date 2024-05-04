@@ -10,9 +10,12 @@ const Services = () => {
 
     useEffect(()=>{
 
-        fetch('services.json')
+        fetch('http://localhost:5000/services')
         .then(res => res.json())
-        .then( data => setServices(data))
+        .then(data => {
+
+            setServices(data)
+        })
 
     }, [])
 

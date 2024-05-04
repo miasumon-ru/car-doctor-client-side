@@ -6,32 +6,45 @@ import CustomAuth from "../custom/CustomAuth";
 
 const Navbar = () => {
 
-    const {logOut, user} = CustomAuth()
+    const { logOut, user } = CustomAuth()
 
     const handleLogOut = () => {
 
         logOut()
-        .then( () => {
-            console.log("logOut is successful")
-        })
+            .then(() => {
+                console.log("logOut is successful")
+            })
     }
 
     const Links = <>
-          
 
-          <li> <Link to={'/'} > Home </Link> </li>
-          <li> <Link to={'/about'} > About </Link> </li>
-          <li> <Link to={'/service'} > Service  </Link> </li> 
 
-          <li> <Link to={'/signUp'} > SignUp  </Link> </li>
+        <li> <Link to={'/'} > Home </Link> </li>
+        <li> <Link to={'/about'} > About </Link> </li>
+        <li> <Link to={'/service'} > Service  </Link> </li>
 
-          {
-            user ? 
-             <li onClick={handleLogOut} className=" w-20 flex items-center justify-center btn ml-2"> LogOut </li> :
-             <li> <Link to={'/login'} > Login  </Link> </li>
-         }
-    
-    
+        <li> <Link to={'/signUp'} > SignUp  </Link> </li>
+
+       
+        {
+            user ?
+
+                <>
+
+                    <li> <Link to={'/bookings'} > My Bookings  </Link> </li>
+
+                    <li onClick={handleLogOut} className=" w-20 flex items-center justify-center btn ml-2"> LogOut </li>
+
+                </>
+
+
+
+
+                :
+                <li> <Link to={'/login'} > Login  </Link> </li>
+        }
+
+
     </>
     return (
         <div className="navbar bg-base-100 h-28">
@@ -42,7 +55,7 @@ const Navbar = () => {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 
-                            {Links}
+                        {Links}
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl"> <img src={logo} alt="" /> </a>
@@ -51,7 +64,7 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1">
 
                     {Links}
-     
+
                 </ul>
             </div>
             <div className="navbar-end">
